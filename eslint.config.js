@@ -29,17 +29,20 @@ export default [
         { allowConstantExport: true },
       ],
     },
-    overrides: [
-      {
-        files: ["backend/**/*.js"],
-        env: {
-          node: true,      // process, require, etc
-          es2022: true     // modern JS globals
-        },
-        globals: {
-          fetch: "readonly" // Node 18+ built-in
-        },
+  },
+  {
+    files: ['api/**/*.js'],
+    languageOptions: {
+      ecmaVersion: 2022,
+      sourceType: 'module',
+      globals: {
+        ...globals.node, // process, require, etc.
+        fetch: 'readonly', // Node.js 18+ built-in fetch
       },
-    ],
+    },
+    rules: {
+      ...js.configs.recommended.rules,
+      'no-unused-vars': ['error', { varsIgnorePattern: '^[A-Z_]' }],
+    },
   },
 ]
